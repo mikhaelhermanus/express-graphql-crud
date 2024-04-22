@@ -1,31 +1,16 @@
-var { graphql, buildSchema } = require("graphql")
-const express = require('express');
-var { createHandler } = require("graphql-http/lib/use/express")
-var { ruruHTML } = require("ruru/server")
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    hello: String
-    age : Int
-  }
-`)
 
-// The rootValue provides a resolver function for each API endpoint
-var rootValue = {
-    hello() {
-        return "Hello world!"
-    },
-    age: () => {
-        return 25
-    }
-}
-
+import express from 'express'
+import { ruruHTML } from 'ruru/server'
+import { createSchema, createYoga } from 'graphql-yoga'
+import { schema } from './src/graphql/index.js'
 const app = express();
 
-app.all('/graphql', createHandler({
-    schema: schema,
-    rootValue: rootValue
-}));
+const yoga = createYoga({
+    schema,
+})
+
+
+app.all('/graphql', yoga)
 
 app.get("/", (_req, res) => {
     res.type("html")
