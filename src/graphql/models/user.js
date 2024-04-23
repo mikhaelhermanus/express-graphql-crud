@@ -9,8 +9,10 @@ export const resolvers = {
     },
 
     Mutation: {
-        createUser: (_, { user }) => {
+        createUser: async (_, { user }, { mongo }) => {
             // insert into database
+            const movies = await mongo.movies.find().toArray()
+            console.log(movies)
             return {
                 id: 1,
                 ...user
@@ -24,7 +26,7 @@ export const resolvers = {
         }
     }
 }
-
+// MXOanw98IcxhvRpG
 export const typeDef = /* GraphQL */ `
     type Query {
         user: User
