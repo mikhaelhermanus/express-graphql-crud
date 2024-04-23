@@ -4,6 +4,7 @@ import { ruruHTML } from 'ruru/server'
 import { createYoga } from 'graphql-yoga'
 import { schema } from './src/graphql/index.js'
 import { setupDatabase } from './src/mongo/index.js'
+import 'dotenv/config'
 const app = express();
 
 const yoga = createYoga({
@@ -24,6 +25,6 @@ app.get("/", (_req, res) => {
     res.end(ruruHTML({ endpoint: "/graphql" }))
 })
 
-
-app.listen(4000)
-console.log('Api running on : http://localhost:""')
+const PORT = process.env.PORT || 3000
+app.listen(PORT)
+console.log(`Api running on : http://localhost:${PORT}` )
