@@ -8,13 +8,10 @@ const queries = /* GraphQL */ `
     }
 `;
 
-
-
 const resolvers = {
     Query: {
         hello: () => 'Hello from Yoga!',
     },
-
 }
 
 export const schema = createSchema({
